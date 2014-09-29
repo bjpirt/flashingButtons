@@ -14,12 +14,19 @@ var fb = new FlashingButtons({
   baud: 57600
 });
 
-fb.on('connected', function(){
+fb.on('connect', function(){
   console.log('Connected');
   fb.on('press', function(details){
     console.log("Button " + details.button + " pressed");
   });
   fb.on('release', function(details){
     console.log("Button " + details.button + " released");
+  });
+  fb.setLed(0, 'FLASH', function(err){
+    if(err){
+      console.log(err);
+    }else{
+      console.log('flashing');
+    }
   });
 });
