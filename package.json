@@ -1,0 +1,26 @@
+{
+  "name": "flashing_buttons",
+  "version": "1.0.0",
+  "description": "A simple Arduino project that controls a device with some buttons and some outputs (LEDs). Useful for building other things!",
+  "main": "lib/flashingButtons.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:bjpirt/flashingButtons.git"
+  },
+  "keywords": [
+    "arduino",
+    "control"
+  ],
+  "author": "Ben Pirt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bjpirt/flashingButtons/issues"
+  },
+  "homepage": "https://github.com/bjpirt/flashingButtons",
+  "dependencies": {
+    "serialport": ">= 1.4.6"
+  }
+}

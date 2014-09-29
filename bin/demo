@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+
+var FlashingButtons = require('../lib/flashingButtons.js').FlashingButtons;
+
+if(process.argv.length > 2){
+  var port = process.argv[2];
+}else{
+  console.log("Usage: demo <serial port>");
+  process.exit(1);
+}
+
+var fb = new FlashingButtons({
+  port: port,
+  baud: 57600
+});
+
+fb.on('connected', function(){
+  console.log('Connected');
+  fb.on('press', function(details){
+    console.log("Button " + details.button + " pressed");
+  });
+  fb.on('release', function(details){
+    console.log("Button " + details.button + " released");
+  });
+});
