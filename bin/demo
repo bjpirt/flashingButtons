@@ -14,6 +14,16 @@ var fb = new FlashingButtons({
   baud: 57600
 });
 
+var buttons = 5;
+var states = {};
+var state_options = ['OFF', 'ON', 'FLASH'];
+for(var i = 0; i< buttons; i++){
+  states[i] = 0;
+}
+
+var state_options = ['OFF', 'ON', 'FLASH'];
+
+
 fb.on('connect', function(){
   console.log('Connected');
   fb.on('press', function(details){
@@ -21,12 +31,14 @@ fb.on('connect', function(){
   });
   fb.on('release', function(details){
     console.log("Button " + details.button + " released");
-  });
-  fb.setLed(0, 'FLASH', function(err){
-    if(err){
-      console.log(err);
-    }else{
-      console.log('flashing');
+    states[details.button]++;
+    if(states[details.button] >= state_options.length){
+      states[details.button] = 0;
     }
+    fb.setLed(details.button, state_options[states[details.button]], function(err){
+      if(err){
+        console.log(err);
+      }
+    });
   });
 });
