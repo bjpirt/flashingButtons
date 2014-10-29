@@ -10,11 +10,11 @@
 #define LED1 10
 #define LED2 11
 #define LED3 12
-#define LED4 14
-#define LED5 15
+#define LED4 13
+#define LED5 14
 #define LED6 15
 
-#define INPUTS 7
+#define INPUTS 5
 
 #define OFF   0
 #define ON    1
@@ -23,8 +23,8 @@
 char inputState;
 char debounceTime = 50;
 
-char inputs[] =  {INPUT0, INPUT1, INPUT2, INPUT3, INPUT4, INPUT5, INPUT6};
-char outputs[] = {LED0, LED1, LED2, LED3, LED4, LED5, LED6};
+char inputs[] =  {INPUT0, INPUT1, INPUT2, INPUT3, INPUT4};
+char outputs[] = {LED0, LED1, LED2, LED3, LED4};
 char ledState[INPUTS];
 char prevState[INPUTS];
 long debounce[INPUTS];
@@ -43,6 +43,7 @@ void setup(){
     prevState[i] = digitalRead(inputs[i]);
     ledState[i] = OFF;
   }
+  handleLeds();
 }
 
 void handleButtons(){
@@ -115,11 +116,11 @@ void handleSerial(){
 void handleLeds(){
   for(char led = 0; led < INPUTS; led++){
     if(ledState[led] == OFF){
-      digitalWrite(outputs[led], LOW);
-    }else if(ledState[led] == ON){
       digitalWrite(outputs[led], HIGH);
+    }else if(ledState[led] == ON){
+      digitalWrite(outputs[led], LOW);
     }else if(ledState[led] == FLASH){
-      digitalWrite(outputs[led], (millis() / 500) % 2 ? HIGH : LOW);
+      digitalWrite(outputs[led], (millis() / 250) % 2 ? HIGH : LOW);
     }
   }
 }
